@@ -26,13 +26,19 @@ class ConstructorParameterOrderRule extends DartLintRule {
       final parameters = constructor.parameters.parameters;
       if (parameters.isEmpty) return;
 
-      parameters.map(ConstructorParameterOrderFunctions.computeConstructorParameterType).toList();
+      parameters
+          .map(ConstructorParameterOrderFunctions
+              .computeConstructorParameterType)
+          .toList();
 
       final sortedOrder = List<FormalParameter>.from(parameters)
-        ..sort((a, b) => ConstructorParameterOrderFunctions.computeConstructorParameterType(a)
-            .index
-            .compareTo(
-                ConstructorParameterOrderFunctions.computeConstructorParameterType(b).index));
+        ..sort((a, b) =>
+            ConstructorParameterOrderFunctions.computeConstructorParameterType(
+                    a)
+                .index
+                .compareTo(ConstructorParameterOrderFunctions
+                        .computeConstructorParameterType(b)
+                    .index));
 
       bool orderCorrect = true;
       for (int i = 0; i < parameters.length; i++) {

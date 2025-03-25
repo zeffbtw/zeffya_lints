@@ -1,7 +1,16 @@
 name: zeffya_lints
 description: "Custom lints"
 version: 1.0.0
-homepage:
+
+repository: https://github.com/zeffbtw/zeffya_lints
+homepage: https://github.com/zeffbtw/zeffya_lints
+issue_tracker: https://github.com/zeffbtw/zeffya_lints/issues
+topics:
+  - lints
+  - linter
+  - utils
+  - analysis
+  - analyzer
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -9,9 +18,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  custom_lint_builder:
-  analyzer:
-  analyzer_plugin:
+  custom_lint_builder: ^0.7.5
+  analyzer: ^7.3.0
+  analyzer_plugin: ^0.13.0
 
 dev_dependencies:
   flutter_test:

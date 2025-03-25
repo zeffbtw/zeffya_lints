@@ -9,7 +9,8 @@ class ControlFlowSpacingRule extends DartLintRule {
 
   static const LintCode _code = LintCode(
     name: 'control_flow_spacing',
-    problemMessage: 'Control flow statements should be separated by an empty line',
+    problemMessage:
+        'Control flow statements should be separated by an empty line',
   );
 
   @override
@@ -41,7 +42,8 @@ class ControlFlowSpacingRule extends DartLintRule {
         if (statementIndex > 0) {
           final previousStatement = parentStatements[statementIndex - 1];
           final previousEnd = previousStatement.end;
-          final textBetween = fileContent.substring(previousEnd, statementStart);
+          final textBetween =
+              fileContent.substring(previousEnd, statementStart);
 
           if (textBetween.contains('\n\n') == false) {
             final error = AnalysisError.forValues(
@@ -50,7 +52,8 @@ class ControlFlowSpacingRule extends DartLintRule {
               length: statement.length,
               errorCode: _code,
               message: _code.problemMessage,
-              correctionMessage: 'Before the control flow statement should be an empty line',
+              correctionMessage:
+                  'Before the control flow statement should be an empty line',
             );
 
             reporter.reportError(error);
@@ -69,7 +72,8 @@ class ControlFlowSpacingRule extends DartLintRule {
               length: statement.length,
               errorCode: _code,
               message: _code.problemMessage,
-              correctionMessage: 'After the control flow statement should be an empty line',
+              correctionMessage:
+                  'After the control flow statement should be an empty line',
             );
             reporter.reportError(error);
           }

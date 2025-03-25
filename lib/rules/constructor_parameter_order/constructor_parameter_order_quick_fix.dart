@@ -14,7 +14,8 @@ class ConstructorParameterOrderQuickFix extends DartFix {
     List<AnalysisError> others,
   ) {
     context.registry.addConstructorDeclaration((constructor) {
-      if (!analysisError.sourceRange.intersects(constructor.sourceRange)) return;
+      if (!analysisError.sourceRange.intersects(constructor.sourceRange))
+        return;
 
       final parameters = constructor.parameters.parameters;
       if (parameters.isEmpty) return;
@@ -27,10 +28,12 @@ class ConstructorParameterOrderQuickFix extends DartFix {
 
       final sortedParams = List<FormalParameter>.from(parameters)
         ..sort(
-          (a, b) => ConstructorParameterOrderFunctions.computeConstructorParameterType(a)
+          (a, b) => ConstructorParameterOrderFunctions
+                  .computeConstructorParameterType(a)
               .index
-              .compareTo(
-                  ConstructorParameterOrderFunctions.computeConstructorParameterType(b).index),
+              .compareTo(ConstructorParameterOrderFunctions
+                      .computeConstructorParameterType(b)
+                  .index),
         );
 
       final newParamsText = sortedParams.map(getParameterText).join(',\n ');

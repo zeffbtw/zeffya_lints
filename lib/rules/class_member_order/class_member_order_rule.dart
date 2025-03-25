@@ -28,7 +28,8 @@ class ClassMemberOrderRule extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addClassDeclaration((classNode) {
-      final hasConstructor = classNode.members.any((m) => m is ConstructorDeclaration);
+      final hasConstructor =
+          classNode.members.any((m) => m is ConstructorDeclaration);
 
       final source = resolver.source;
       final lineInfo = resolver.lineInfo;
@@ -38,8 +39,9 @@ class ClassMemberOrderRule extends DartLintRule {
       for (final member in classNode.members) {
         if (member is ConstructorDeclaration) {
           for (final parameter in member.parameters.parameters) {
-            final simpleParameter =
-                parameter is DefaultFormalParameter ? parameter.parameter : parameter;
+            final simpleParameter = parameter is DefaultFormalParameter
+                ? parameter.parameter
+                : parameter;
             if (simpleParameter is FieldFormalParameter) {
               fieldsInConstructor.add(simpleParameter.name.lexeme);
             }
@@ -88,7 +90,8 @@ class ClassMemberOrderRule extends DartLintRule {
       violations.addAll(ClassMemberOrderFunctions.getOrderViolations(types));
 
       if (violations.isNotEmpty) {
-        _report(classNode, source, reporter, '${_code.problemMessage} ${violations.join(', ')}');
+        _report(classNode, source, reporter,
+            '${_code.problemMessage} ${violations.join(', ')}');
       }
     });
   }
@@ -102,9 +105,11 @@ class ClassMemberOrderRule extends DartLintRule {
     final List<String> violations = [];
 
     final classBodyBraceOffset = classNode.leftBracket.offset;
-    final classBodyBraceLine = lineInfo.getLocation(classBodyBraceOffset).lineNumber;
+    final classBodyBraceLine =
+        lineInfo.getLocation(classBodyBraceOffset).lineNumber;
 
-    final startOffset = constructorDecl.firstTokenAfterCommentAndMetadata.offset;
+    final startOffset =
+        constructorDecl.firstTokenAfterCommentAndMetadata.offset;
     final startLine = lineInfo.getLocation(startOffset).lineNumber;
 
     final endOffset = constructorDecl.end;
@@ -117,7 +122,8 @@ class ClassMemberOrderRule extends DartLintRule {
       }
     }
 
-    final classClosingBraceLine = lineInfo.getLocation(classNode.rightBracket.offset).lineNumber;
+    final classClosingBraceLine =
+        lineInfo.getLocation(classNode.rightBracket.offset).lineNumber;
     if (endLine + 1 < classClosingBraceLine) {
       final nextLineText = _getLineText(lineInfo, source, endLine + 1);
       if (nextLineText.trim().isNotEmpty) {
