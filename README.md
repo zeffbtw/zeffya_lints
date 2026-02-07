@@ -4,13 +4,13 @@
 [![GitHub license](https://img.shields.io/github/license/zeffbtw/zeffya_lints)](https://github.com/zeffbtw/zeffya_lints/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/zeffbtw/zeffya_lints)](https://github.com/zeffbtw/zeffya_lints/stargazers)
 
-A custom set of linter rules to enforce consistent and clean Dart/Flutter code style.
+A custom set of linter rules to enforce consistent and clean Dart/Flutter code style. Built on raw `analyzer_plugin` with zero external dependencies.
 
 ---
 
-## 🌟 Features
+## Features
 
-### ✅ `ClassMemberOrderRule`
+### `class_member_order`
 
 Enforces specific ordering and spacing between different groups of class members:
 
@@ -33,9 +33,10 @@ Enforces specific ordering and spacing between different groups of class members
 - `privateMethod`
 - `widgetOverrideBuildMethod`
 - `widgetBuildMethod`
-- `none`
 
-### ✅ `ConstructorParameterOrderRule`
+Includes quick fix to auto-reorder members.
+
+### `constructor_parameter_order`
 
 Ensures constructor parameters follow the desired order:
 
@@ -48,30 +49,32 @@ Ensures constructor parameters follow the desired order:
 - `thisFieldWithValue`
 - `thisFieldNullableWithValue`
 - `variableWithValue`
-- `none`
 
-### ✅ `ControlFlowSpacingRule`
+Includes quick fix to auto-sort parameters.
 
-Enforces spacing rules around control-flow statements such as `if`, `for`, `while`, etc.
+### `control_flow_spacing`
+
+Enforces empty lines before and after control-flow statements (`if`, `for`, `while`, `do`, `switch`).
+
+Includes quick fix to auto-add spacing.
 
 ---
 
-## 📦 Installation
+## Installation
 
-Add the package to your `dev_dependencies`:
+Add the package to your `dependencies`:
 
 ```yaml
-dev_dependencies:
-  zeffya_lints:
-  custom_lint:
+dependencies:
+  zeffya_lints: ^2.0.0
 ```
 
-Then, in your `analysis_options.yaml`, enable the plugin and optionally exclude generated files:
+Then enable the plugin in your `analysis_options.yaml`:
 
 ```yaml
 analyzer:
   plugins:
-    - custom_lint
+    - zeffya_lints
 
   exclude:
     - "**/*.g.dart"
@@ -81,13 +84,13 @@ analyzer:
     - "lib/firebase_options.dart"
 ```
 
-Restart the Dart/Flutter analysis server after making changes to apply the new rules.
+Restart the Dart/Flutter analysis server after making changes.
 
 ---
 
-## 📝 License
+## License
 
-This project is licensed under the BSD 3-Clause License – see the [LICENSE](https://github.com/zeffbtw/circlify/blob/main/LICENSE) file for details.
+This project is licensed under the BSD 3-Clause License – see the [LICENSE](https://github.com/zeffbtw/zeffya_lints/blob/main/LICENSE) file for details.
 
 ---
 

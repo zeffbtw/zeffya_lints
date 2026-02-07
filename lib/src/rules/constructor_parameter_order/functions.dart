@@ -1,19 +1,25 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:zeffya_lints/rules/constructor_parameter_order/constructor_parameter_type.dart';
+
+import 'types.dart';
 
 class ConstructorParameterOrderFunctions {
-  static ConstructorParameterType computeConstructorParameterType(FormalParameter param) {
-    DartType? _getParamType(FormalParameter p) {
-      if (p is DefaultFormalParameter) return _getParamType(p.parameter);
+  static ConstructorParameterType computeConstructorParameterType(
+      FormalParameter param) {
+    DartType? getParamType(FormalParameter p) {
+      if (p is DefaultFormalParameter) return getParamType(p.parameter);
       return p.declaredFragment?.element.type;
     }
 
-    final bool isRequired = param.isRequiredPositional || param.isRequiredNamed;
-    final bool hasThis = param is FieldFormalParameter || param.toSource().contains('this.');
-    final bool hasDefaultValue = param is DefaultFormalParameter && param.defaultValue != null;
-    final isNullable = _getParamType(param)?.nullabilitySuffix == NullabilitySuffix.question;
+    final bool isRequired =
+        param.isRequiredPositional || param.isRequiredNamed;
+    final bool hasThis =
+        param is FieldFormalParameter || param.toSource().contains('this.');
+    final bool hasDefaultValue =
+        param is DefaultFormalParameter && param.defaultValue != null;
+    final isNullable =
+        getParamType(param)?.nullabilitySuffix == NullabilitySuffix.question;
 
     if (param.toSource().contains('super.')) {
       return ConstructorParameterType.superField;

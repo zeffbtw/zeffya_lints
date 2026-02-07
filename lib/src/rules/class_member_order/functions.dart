@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
-import 'package:zeffya_lints/rules/class_member_order/class_member_type.dart';
+
+import 'types.dart';
 
 class ClassMemberOrderFunctions {
   static List<ClassMemberType> getTypes(
@@ -9,12 +10,7 @@ class ClassMemberOrderFunctions {
   ) {
     final types = <ClassMemberType>[];
     for (final member in members) {
-      types.add(
-        computeClassMemberType(
-          member,
-          fieldsInConstructor,
-        ),
-      );
+      types.add(computeClassMemberType(member, fieldsInConstructor));
     }
     return types;
   }
@@ -42,17 +38,20 @@ class ClassMemberOrderFunctions {
       final inCtor = names.any(fieldsInConstructor.contains);
 
       if (inCtor) return ClassMemberType.constructorField;
-      if (member.isStatic && member.fields.isConst)
+      if (member.isStatic && member.fields.isConst) {
         return ClassMemberType.staticConst;
-      if (member.isStatic && member.fields.isFinal)
+      }
+      if (member.isStatic && member.fields.isFinal) {
         return ClassMemberType.staticFinal;
+      }
       if (member.isStatic) return ClassMemberType.static;
       if (member.fields.isConst) return ClassMemberType.constant;
-      if (member.fields.isFinal && member.fields.isLate)
+      if (member.fields.isFinal && member.fields.isLate) {
         return ClassMemberType.lateFinal;
+      }
       if (member.fields.isFinal) return ClassMemberType.finalVar;
       if (member.fields.variables.any((v) =>
-          v.declaredElement?.type.nullabilitySuffix ==
+          v.declaredFragment?.element.type.nullabilitySuffix ==
           NullabilitySuffix.question)) {
         return ClassMemberType.optional;
       }
@@ -72,9 +71,9 @@ class ClassMemberOrderFunctions {
       if (member.metadata.any((m) => m.name.name == 'override')) {
         return ClassMemberType.overrideMethod;
       }
-      if (member.name.lexeme.startsWith('_'))
+      if (member.name.lexeme.startsWith('_')) {
         return ClassMemberType.privateMethod;
-
+      }
       return ClassMemberType.method;
     }
     return ClassMemberType.none;

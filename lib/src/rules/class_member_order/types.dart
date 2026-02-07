@@ -20,7 +20,7 @@ enum ClassMemberType {
   widgetBuildMethod,
   none;
 
-  bool isDifferentGropus(ClassMemberType other) {
+  bool isDifferentGroups(ClassMemberType other) {
     final a = _ClassMemberGroup.fromType(this);
     final b = _ClassMemberGroup.fromType(other);
     return a != b;
