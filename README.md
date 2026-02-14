@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/github/license/zeffbtw/zeffya_lints)](https://github.com/zeffbtw/zeffya_lints/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/zeffbtw/zeffya_lints)](https://github.com/zeffbtw/zeffya_lints/stargazers)
 
-A custom set of linter rules to enforce consistent and clean Dart/Flutter code style. Built on raw `analyzer_plugin` with zero external dependencies.
+A custom set of linter rules to enforce consistent and clean Dart/Flutter code style. Built on the native Dart 3.10+ `analysis_server_plugin` system with full IDE integration.
 
 ---
 
@@ -60,6 +60,11 @@ Includes quick fix to auto-add spacing.
 
 ---
 
+## Requirements
+
+- Dart SDK `>=3.10.0 <4.0.0`
+- Flutter `>=3.38.0`
+
 ## Installation
 
 Add the package to your `dependencies`:
@@ -72,10 +77,14 @@ dependencies:
 Then enable the plugin in your `analysis_options.yaml`:
 
 ```yaml
-analyzer:
-  plugins:
-    - zeffya_lints
+plugins:
+  zeffya_lints:
+    diagnostics:
+      class_member_order: true
+      constructor_parameter_order: true
+      control_flow_spacing: true
 
+analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
@@ -85,6 +94,16 @@ analyzer:
 ```
 
 Restart the Dart/Flutter analysis server after making changes.
+
+## CLI Fix Tool
+
+Apply all fixes automatically from the command line:
+
+```bash
+dart run zeffya_lints:fix [path]
+```
+
+This will analyze, apply fixes, and run `dart format` on modified files.
 
 ---
 

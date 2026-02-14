@@ -8,5 +8,5 @@ enum ConstructorParameterType {
   thisFieldWithValue,
   thisFieldNullableWithValue,
   variableWithValue,
-  none;
+  none,
 }

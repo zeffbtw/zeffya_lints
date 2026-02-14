@@ -6,6 +6,5 @@
 /// - `control_flow_spacing`: Ensures control flow statements have proper spacing
 library zeffya_lints;
 
-export 'src/plugin.dart' show ZeffyaLintsPlugin;
+export 'main.dart' show ZeffyaLintsPlugin;
 export 'src/linter.dart' show ZeffyaLinter, LintError, LintFix, SourceEditData;
-export 'src/base/lint_rule.dart' show LintRule, ErrorCallback;

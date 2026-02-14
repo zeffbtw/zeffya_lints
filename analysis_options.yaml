@@ -1,0 +1,7 @@
+plugins:
+  zeffya_lints:
+    path: .
+    diagnostics:
+      class_member_order: true
+      constructor_parameter_order: true
+      control_flow_spacing: true

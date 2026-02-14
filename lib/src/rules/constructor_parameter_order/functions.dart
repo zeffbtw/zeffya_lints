@@ -6,14 +6,15 @@ import 'types.dart';
 
 class ConstructorParameterOrderFunctions {
   static ConstructorParameterType computeConstructorParameterType(
-      FormalParameter param) {
+    FormalParameter param,
+  ) {
     DartType? getParamType(FormalParameter p) {
       if (p is DefaultFormalParameter) return getParamType(p.parameter);
+
       return p.declaredFragment?.element.type;
     }
 
-    final bool isRequired =
-        param.isRequiredPositional || param.isRequiredNamed;
+    final bool isRequired = param.isRequiredPositional || param.isRequiredNamed;
     final bool hasThis =
         param is FieldFormalParameter || param.toSource().contains('this.');
     final bool hasDefaultValue =
@@ -24,18 +25,27 @@ class ConstructorParameterOrderFunctions {
     if (param.toSource().contains('super.')) {
       return ConstructorParameterType.superField;
     }
-    if (isRequired && hasThis) return ConstructorParameterType.requiredThisField;
+
+    if (isRequired && hasThis)
+      return ConstructorParameterType.requiredThisField;
+
     if (isRequired) return ConstructorParameterType.requiredVariable;
+
     if (hasThis && hasDefaultValue) {
       return ConstructorParameterType.thisFieldWithValue;
     }
-    if (hasThis && isNullable) return ConstructorParameterType.thisFieldNullable;
+
+    if (hasThis && isNullable)
+      return ConstructorParameterType.thisFieldNullable;
+
     if (hasThis && isNullable && hasDefaultValue) {
       return ConstructorParameterType.thisFieldNullableWithValue;
     }
+
     if (hasThis) return ConstructorParameterType.thisField;
 
     if (isNullable) return ConstructorParameterType.variableNullable;
+
     if (hasDefaultValue) {
       return ConstructorParameterType.variableWithValue;
     }
