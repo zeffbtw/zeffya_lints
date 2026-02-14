@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.1] - 2026-02-14
+
+- Fix: widen dependency constraints to support analyzer 10.x and analyzer_plugin 0.14.x
+- This fixes plugin not loading for consumers using `plugins: zeffya_lints: ^2.0.0`
+
 ## [2.0.0] - 2026-02-14
 
 **Breaking:** Migrated from `custom_lint_builder` to native `analysis_server_plugin` (Dart 3.10+).
